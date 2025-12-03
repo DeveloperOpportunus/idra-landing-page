@@ -13,12 +13,8 @@ import Footer from '@/components/Footer';
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <div className="fixed top-6 left-1/2 -translate-x-1/2 w-full z-50 pointer-events-none">
-        <div className="mx-auto md:w-[80%] lg:w-[70%] w-[92%] pointer-events-auto">
-          <Navbar />
-        </div>
-      </div>
       <main>
+        <Navbar />
         <Hero />
         <Sobre />
         <Especialidades />

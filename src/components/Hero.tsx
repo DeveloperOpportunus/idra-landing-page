@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Heart, Users, Stethoscope } from 'lucide-react';
-import heroImage from '@/assets/hero-team.jpg';
+import heroImage from '@/assets/idra-logo.png';
 
 const Hero = () => {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -42,9 +42,9 @@ const Hero = () => {
       id="inicio"
       className="
         relative
-        min-h-screen
+        h-screen
         flex items-center
-        pt-24 pb-16
+        pt-32
         overflow-hidden
         bg-gradient-to-br from-[#e9f2ff] via-white to-[#f8faff]
       "
@@ -109,9 +109,9 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Cuidamos da sua dor com{' '}
-              <span className="text-[#0056A6]">tecnologia</span> e{' '}
-              <span className="text-[#C8102E]">reabilitação avançada</span>
+              <br className="hidden md:block" />
+              Descubra a <span className="text-[#0056A6]">tecnologia</span> e a{' '}
+              <span className="text-[#C8102E]">reabilitação que transformam</span>
             </motion.h1>
 
             <motion.p
@@ -126,10 +126,10 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.35 }}
             >
-              A IDRA é uma clínica especializada em dor e reabilitação acelerada,
-              unindo medicina, fisioterapia e tecnologia para devolver qualidade
-              de vida aos pacientes.
-            </motion.p>
+              No Instituto IDRA, tratamos sua dor com abordagem integrada e tecnologias de ponta.
+              Unimos fisioterapia, medicina e empatia para acelerar sua recuperação e devolver sua liberdade de movimento com acolhimento e cuidado em cada detalhe.
+          </motion.p>
+
 
             <motion.div
               className="flex flex-wrap gap-4 mb-8"
@@ -210,8 +210,6 @@ const Hero = () => {
                 relative
                 rounded-3xl
                 overflow-hidden
-                shadow-xl
-                bg-slate-900/5
               "
             >
               <img
@@ -219,23 +217,9 @@ const Hero = () => {
                 alt="Equipe médica IDRA"
                 className="w-full h-full object-cover"
               />
-              {/* Overlay sutil com gradiente na cor da marca */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0056A6]/25 via-transparent to-transparent" />
             </div>
 
-            {/* Elementos decorativos extras */}
-            <motion.div
-              className="absolute -top-6 -right-6 w-32 h-32 bg-[#0056A6]/10 rounded-full blur-3xl"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            />
-            <motion.div
-              className="absolute -bottom-8 -left-4 w-40 h-40 bg-[#C8102E]/10 rounded-full blur-3xl"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-            />
+
           </motion.div>
         </motion.div>
       </div>
