@@ -44,7 +44,7 @@ const Hero = () => {
         relative
         h-screen
         flex items-center
-        pt-32
+        pt-10
         overflow-hidden
         bg-gradient-to-br from-[#e9f2ff] via-white to-[#f8faff]
       "
@@ -76,25 +76,6 @@ const Hero = () => {
         >
           {/* Coluna texto */}
           <div className="relative z-10">
-            {/* Card leve pra dar cara de produto premium */}
-            <motion.div
-              className="
-                inline-flex items-center gap-2
-                mb-4 px-4 py-2
-                rounded-full
-                bg-white/70
-                border border-white/60
-                shadow-sm
-                backdrop-blur-md
-                text-xs font-medium text-[#0056A6]
-              "
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <span className="h-2 w-2 rounded-full bg-[#C8102E]" />
-              Instituto da Dor e Reabilitação Acelerada
-            </motion.div>
 
             <motion.h1
               style={{ scale: titleScale, y: titleY }}
