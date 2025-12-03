@@ -9,20 +9,33 @@ const Hero = () => {
 
   const { scrollYProgress } = useScroll({
     target: scrollContainerRef,
-    offset: ['start start', 'end start'], // 0 = topo da tela, 1 = quando o hero sai do viewport
+    offset: ['start start', 'end start'],
   });
 
-  // Shrink geral do bloco
+  // Transformações baseadas em scroll
   const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
   const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.5]);
-
-  // Shrink do título
   const titleScale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
   const titleY = useTransform(scrollYProgress, [0, 1], [0, -20]);
-
-  // Imagem com leve parallax + shrink
   const imageScale = useTransform(scrollYProgress, [0, 1], [1.05, 0.9]);
   const imageY = useTransform(scrollYProgress, [0, 1], [0, -40]);
+
+  // Variante de animação para entradas suaves
+  const fadeIn = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (delay = 0) => ({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, delay, ease: 'easeOut' },
+    }),
+  };
+
+  // Badges com dados
+  const badges = [
+    { icon: Heart, text: 'Atendimento humanizado' },
+    { icon: Users, text: 'Equipe multidisciplinar' },
+    { icon: Stethoscope, text: 'Protocolos personalizados' },
+  ];
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
@@ -31,64 +44,120 @@ const Hero = () => {
     }
   };
 
-  const badges = [
-    { icon: Heart, text: 'Atendimento humanizado' },
-    { icon: Users, text: 'Equipe multidisciplinar' },
-    { icon: Stethoscope, text: 'Protocolos personalizados' },
-  ];
-
   return (
     <section
       id="inicio"
       className="
         relative
-        h-screen
+        min-h-screen
         flex items-center
-        pt-10
+        pt-20 md:pt-10
         overflow-hidden
+        overflow-x-hidden
         bg-gradient-to-br from-[#e9f2ff] via-white to-[#f8faff]
       "
+      style={{ touchAction: 'pan-y' }}
     >
-      {/* Glows decorativos nas cores da marca */}
+      {/* Fundo sutil com gradiente */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-[#e9f2ff]/40 via-white to-[#f8faff]/40" />
+
+      {/* Glows decorativos sutis - apenas em telas pequenas */}
       <motion.div
-        className="pointer-events-none absolute -top-32 -left-10 h-64 w-64 rounded-full bg-[#0056A6]/20 blur-3xl"
-        initial={{ opacity: 0, scale: 0.8 }}
+        className="hidden sm:block pointer-events-none absolute -top-28 -left-32 h-64 w-64 rounded-full bg-[#0056A6]/12 blur-3xl"
+        initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
+        style={{ willChange: 'transform' }}
+        aria-hidden
       />
       <motion.div
-        className="pointer-events-none absolute -bottom-32 -right-10 h-72 w-72 rounded-full bg-[#C8102E]/15 blur-3xl"
-        initial={{ opacity: 0, scale: 0.8 }}
+        className="hidden sm:block pointer-events-none absolute -bottom-28 -right-32 h-72 w-72 rounded-full bg-[#C8102E]/10 blur-3xl"
+        initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, delay: 0.2 }}
+        style={{ willChange: 'transform' }}
+        aria-hidden
       />
 
-      <div className="container mx-auto px-4">
+      {/* Shapes decorativos com animação contínua - apenas em telas pequenas */}
+      <motion.div
+        className="hidden sm:block pointer-events-none absolute top-1/4 right-1/2 translate-x-1/2 w-72 h-72 rounded-3xl bg-gradient-to-br from-[#0056A6]/10 to-[#C8102E]/10 blur-2xl"
+        animate={{
+          rotate: [0, 360],
+          y: [0, -8, 8, 0],
+        }}
+        transition={{
+          rotate: { duration: 40, repeat: Infinity, ease: 'linear' },
+          y: { duration: 12, repeat: Infinity, ease: 'easeInOut' },
+        }}
+        style={{ willChange: 'transform' }}
+        aria-hidden
+      />
+      <motion.div
+        className="hidden sm:block pointer-events-none absolute bottom-1/4 left-1/4 w-56 h-56 rounded-full bg-gradient-to-tr from-[#C8102E]/8 to-[#0056A6]/8 blur-3xl"
+        animate={{
+          scale: [1, 1.04, 1],
+          opacity: [0.22, 0.45, 0.22],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        style={{ willChange: 'transform' }}
+        aria-hidden
+      />
+
+      <div className="container mx-auto px-4 w-full">
         <motion.div
           ref={scrollContainerRef}
           style={{ scale: heroScale, opacity: heroOpacity }}
-          className="
-            grid lg:grid-cols-2 gap-12 items-center
-          "
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center"
+          variants={fadeIn}
+          initial="hidden"
+          animate="visible"
+          custom={0}
         >
-          {/* Coluna texto */}
-          <div className="relative z-10">
+          {/* Coluna Imagem - vem primeiro em mobile */}
+          <motion.div
+            className="relative z-10 order-first lg:order-last"
+            style={{ scale: imageScale, y: imageY }}
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.25 }}
+            style={{ willChange: 'transform' }}
+          >
+            <div
+              className="
+                relative
+                rounded-3xl
+                overflow-hidden
+                w-full
+                h-[360px]
+                sm:h-[420px]
+                md:h-[520px]
+                lg:h-auto
+              "
+            >
+              <img
+                src={heroImage}
+                alt="Equipe médica IDRA"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </motion.div>
 
+          {/* Coluna Texto */}
+          <div className="relative z-10 order-last lg:order-first">
             <motion.h1
               style={{ scale: titleScale, y: titleY }}
               className="
-                text-4xl md:text-5xl lg:text-6xl
+                text-3xl sm:text-4xl md:text-5xl lg:text-6xl
                 font-extrabold
                 leading-tight
                 mb-6
                 text-slate-900
               "
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              variants={fadeIn}
+              initial="hidden"
+              animate="visible"
+              custom={0.12}
             >
               <br className="hidden md:block" />
               Descubra a <span className="text-[#0056A6]">tecnologia</span> e a{' '}
@@ -97,26 +166,27 @@ const Hero = () => {
 
             <motion.p
               className="
-                text-base md:text-lg
+                text-sm sm:text-base md:text-lg
                 text-slate-600
                 mb-8
                 leading-relaxed
                 max-w-xl
               "
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
+              variants={fadeIn}
+              initial="hidden"
+              animate="visible"
+              custom={0.22}
             >
               No Instituto IDRA, tratamos sua dor com abordagem integrada e tecnologias de ponta.
               Unimos fisioterapia, medicina e empatia para acelerar sua recuperação e devolver sua liberdade de movimento com acolhimento e cuidado em cada detalhe.
-          </motion.p>
-
+            </motion.p>
 
             <motion.div
               className="flex flex-wrap gap-4 mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.45 }}
+              variants={fadeIn}
+              initial="hidden"
+              animate="visible"
+              custom={0.34}
             >
               <Button
                 size="lg"
@@ -149,15 +219,16 @@ const Hero = () => {
               </Button>
             </motion.div>
 
-            {/* Badges com glassmorphism */}
+            {/* Badges com movimento sutil */}
             <motion.div
               className="flex flex-wrap gap-3"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.55 }}
+              variants={fadeIn}
+              initial="hidden"
+              animate="visible"
+              custom={0.46}
             >
               {badges.map((badge, index) => (
-                <div
+                <motion.div
                   key={index}
                   className="
                     flex items-center gap-2
@@ -168,42 +239,27 @@ const Hero = () => {
                     shadow-sm
                     backdrop-blur-md
                   "
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{
+                    duration: 6 + index,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                  style={{ willChange: 'transform' }}
                 >
                   <badge.icon className="h-4 w-4 text-[#0056A6]" />
                   <span className="text-sm font-medium text-slate-800">
                     {badge.text}
                   </span>
-                </div>
+                </motion.div>
               ))}
             </motion.div>
           </div>
-
-          {/* Coluna imagem */}
-          <motion.div
-            className="relative z-10"
-            style={{ scale: imageScale, y: imageY }}
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.25 }}
-          >
-            <div
-              className="
-                relative
-                rounded-3xl
-                overflow-hidden
-              "
-            >
-              <img
-                src={heroImage}
-                alt="Equipe médica IDRA"
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-
-          </motion.div>
         </motion.div>
       </div>
+
+      {/* Gradiente de esmaecimento no final para transição suave */}
+      <div className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none bg-gradient-to-b from-transparent to-white" />
     </section>
   );
 };

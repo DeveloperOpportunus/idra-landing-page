@@ -5,7 +5,6 @@ import Especialidades from '@/components/Especialidades';
 import Equipe from '@/components/Equipe';
 import Estrutura from '@/components/Estrutura';
 import Depoimentos from '@/components/Depoimentos';
-import Planos from '@/components/Planos';
 import FAQ from '@/components/FAQ';
 import Contato from '@/components/Contato';
 import Footer from '@/components/Footer';
@@ -21,7 +20,6 @@ const Index = () => {
         <Equipe />
         <Estrutura />
         <Depoimentos />
-        <Planos />
         <FAQ />
         <Contato />
       </main>
