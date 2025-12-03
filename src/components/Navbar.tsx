@@ -11,7 +11,6 @@ const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -28,57 +27,102 @@ const Navbar = () => {
   ];
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    const el = document.querySelector(href);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
       setIsMobileMenuOpen(false);
     }
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-card shadow-custom-lg h-16 rounded-b-2xl'
-          : 'bg-card/80 backdrop-blur-md h-20'
-      }`}
+    <motion.nav
+      animate={{
+        scale: isScrolled ? 0.92 : 1,
+        y: isScrolled ? -4 : 0,
+        borderRadius: isScrolled ? '1.75rem' : '2rem',
+      }}
+      transition={{ duration: 0.35, ease: 'easeOut' }}
+      className="
+        fixed
+        left-1/2 -translate-x-1/2
+        z-50
+
+        w-[92%]
+        sm:w-[88%]
+        md:w-[82%]
+        lg:w-[70%]
+
+        top-4
+        sm:top-4
+        md:top-6
+        lg:top-6
+
+        backdrop-blur-xl
+        transition-all duration-300
+      "
     >
-      <div className="container mx-auto px-4 h-full flex items-center justify-between">
+      <div
+        className="
+          relative h-full w-full
+          px-4 py-3
+          flex items-center justify-between
+          rounded-2xl
+          shadow-lg
+          bg-white/70
+          transition-all duration-300
+        "
+      >
+        {/* Glow */}
+        <div className="
+          absolute inset-0 -z-10 rounded-3xl
+          bg-gradient-to-br from-[#0056A6]/20 via-transparent to-[#C8102E]/20
+          blur-2xl
+        " />
+
         {/* Logo */}
-        <div className="font-display text-2xl font-bold text-primary">
+        <div className="font-display text-2xl font-extrabold text-[#0056A6]">
           IDRA
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-6">
           {menuItems.map((item) => (
             <button
               key={item.label}
               onClick={() => scrollToSection(item.href)}
-              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+              className="
+                text-sm font-medium text-slate-700
+                hover:text-[#0056A6]
+                transition-colors
+              "
             >
               {item.label}
             </button>
           ))}
+
           <Button
-            variant="default"
-            className="bg-accent hover:bg-accent-hover text-accent-foreground"
+            className="
+              bg-[#C8102E]
+              hover:bg-[#a50d25]
+              text-white
+              shadow-md shadow-[#C8102E]/30
+            "
             onClick={() => scrollToSection('#contato')}
           >
             Agendar avaliação
           </Button>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Toggle */}
         <button
           className="lg:hidden"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? (
-            <X className="h-6 w-6 text-foreground" />
+            <X className="h-6 w-6 text-slate-800" />
           ) : (
-            <Menu className="h-6 w-6 text-foreground" />
+            <Menu className="h-6 w-6 text-slate-800" />
           )}
         </button>
       </div>
@@ -87,25 +131,37 @@ const Navbar = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="lg:hidden absolute top-full left-0 right-0 bg-card shadow-custom-lg rounded-b-2xl"
+            className="
+              lg:hidden mt-2
+              w-full
+              px-6 py-4
+              rounded-3xl
+              bg-white/80 backdrop-blur-xl shadow-xl
+            "
           >
-            <div className="container mx-auto px-4 py-4 flex flex-col gap-2">
+            <div className="flex flex-col gap-2">
               {menuItems.map((item) => (
                 <button
                   key={item.label}
                   onClick={() => scrollToSection(item.href)}
-                  className="text-left py-2 px-4 text-foreground hover:bg-secondary rounded-lg transition-colors"
+                  className="
+                    text-left py-2 px-4
+                    text-slate-800
+                    hover:bg-slate-100
+                    rounded-xl
+                    transition-colors
+                  "
                 >
                   {item.label}
                 </button>
               ))}
+
               <Button
-                variant="default"
-                className="bg-accent hover:bg-accent-hover text-accent-foreground mt-2"
+                className="bg-[#C8102E] hover:bg-[#a50d25] text-white mt-3"
                 onClick={() => scrollToSection('#contato')}
               >
                 Agendar avaliação
@@ -114,7 +170,7 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   );
 };
 
