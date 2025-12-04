@@ -45,7 +45,7 @@ const Navbar = () => {
       className="
         fixed top-3 sm:top-4 md:top-6 lg:top-6 z-50
         left-0 right-0
-        px-4 sm:px-6
+        px-3 sm:px-4 md:px-6
         transition-all duration-300
       "
     >

@@ -46,21 +46,21 @@ const FAQ = () => {
   ];
 
   return (
-    <section className="py-20 bg-card" ref={ref}>
+    <section className="py-12 md:py-20 bg-card" ref={ref}>
       <div className="container mx-auto px-4 max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 md:mb-4">
             Perguntas Frequentes
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
             Tire suas dúvidas sobre nossos serviços
           </p>
-          <div className="w-20 h-1 bg-primary mx-auto rounded-full mt-4" />
+          <div className="w-16 md:w-20 h-1 bg-primary mx-auto rounded-full mt-3 md:mt-4" />
         </motion.div>
 
         <motion.div
@@ -68,19 +68,19 @@ const FAQ = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion type="single" collapsible className="space-y-3 md:space-y-4">
             {perguntas.map((item, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-section-alt rounded-lg px-6 border-none"
+                className="bg-section-alt rounded-lg px-4 md:px-6 border-none"
               >
-                <AccordionTrigger className="text-left hover:no-underline py-6">
-                  <span className="font-semibold text-foreground">
+                <AccordionTrigger className="text-left hover:no-underline py-4 md:py-6">
+                  <span className="font-semibold text-sm md:text-base text-foreground">
                     {item.pergunta}
                   </span>
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed pb-6">
+                <AccordionContent className="text-sm md:text-base text-muted-foreground leading-relaxed pb-4 md:pb-6">
                   {item.resposta}
                 </AccordionContent>
               </AccordionItem>

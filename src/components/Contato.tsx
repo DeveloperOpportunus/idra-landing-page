@@ -104,15 +104,15 @@ const Contato = () => {
           <div className="w-20 h-1 bg-primary mx-auto rounded-full mt-4" />
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 mb-12">
+        <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-12">
           {/* Formulário */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-card p-8 rounded-xl shadow-custom"
+            className="bg-card p-6 md:p-8 rounded-xl shadow-custom"
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
               <div>
                 <label
                   htmlFor="nome"
@@ -131,7 +131,7 @@ const Contato = () => {
                 />
               </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 gap-3 md:gap-4">
                 <div>
                   <label
                     htmlFor="email"
@@ -259,12 +259,12 @@ const Contato = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-center bg-primary text-primary-foreground p-12 rounded-2xl shadow-hover"
+          className="text-center bg-primary text-primary-foreground p-8 md:p-12 rounded-2xl shadow-hover"
         >
-          <h3 className="text-2xl md:text-3xl font-bold mb-4">
+          <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4">
             Agende sua avaliação e dê o primeiro passo para viver sem dor
           </h3>
-          <p className="text-lg mb-6 opacity-90">
+          <p className="text-base md:text-lg mb-6 opacity-90">
             Nossa equipe está pronta para cuidar de você
           </p>
           <Button

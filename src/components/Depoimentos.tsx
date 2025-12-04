@@ -52,27 +52,27 @@ const Depoimentos = () => {
           <div className="w-20 h-1 bg-primary mx-auto rounded-full mt-4" />
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-4 md:gap-6">
           {depoimentos.map((depoimento, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="bg-section-alt p-8 rounded-xl shadow-custom hover:shadow-hover transition-all duration-300 hover:-translate-y-1 relative"
+              className="bg-section-alt p-6 md:p-8 rounded-xl shadow-custom hover:shadow-hover transition-all duration-300 hover:-translate-y-1 relative"
             >
-              <Quote className="absolute top-6 right-6 h-10 w-10 text-primary/20" />
-              <p className="text-muted-foreground leading-relaxed mb-6 relative z-10">
+              <Quote className="absolute top-4 md:top-6 right-4 md:right-6 h-8 md:h-10 w-8 md:w-10 text-primary/20" />
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6 relative z-10">
                 "{depoimento.texto}"
               </p>
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <span className="text-primary font-semibold">
+                <div className="w-12 md:w-14 h-12 md:h-14 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <span className="text-primary font-semibold text-sm md:text-base">
                     {depoimento.nome.charAt(0)}
                   </span>
                 </div>
                 <div>
-                  <p className="font-semibold text-foreground">{depoimento.nome}</p>
+                  <p className="font-semibold text-foreground text-sm md:text-base">{depoimento.nome}</p>
                   <p className="text-sm text-muted-foreground">
                     {depoimento.idade} anos
                   </p>

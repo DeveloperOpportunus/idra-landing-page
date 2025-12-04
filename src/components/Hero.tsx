@@ -1,24 +1,11 @@
 import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Heart, Users, Stethoscope } from 'lucide-react';
 import heroImage from '@/assets/idra-logo.png';
 
 const Hero = () => {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: scrollContainerRef,
-    offset: ['start start', 'end start'],
-  });
-
-  // Transformações baseadas em scroll
-  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.5]);
-  const titleScale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
-  const titleY = useTransform(scrollYProgress, [0, 1], [0, -20]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1.05, 0.9]);
-  const imageY = useTransform(scrollYProgress, [0, 1], [0, -40]);
 
   // Variante de animação para entradas suaves
   const fadeIn = {
@@ -107,7 +94,6 @@ const Hero = () => {
       <div className="container mx-auto px-4 w-full">
         <motion.div
           ref={scrollContainerRef}
-          style={{ scale: heroScale, opacity: heroOpacity }}
           className="grid gap-6 md:gap-8 lg:grid-cols-2 lg:gap-12 items-center"
           variants={fadeIn}
           initial="hidden"
@@ -117,7 +103,6 @@ const Hero = () => {
           {/* Coluna Imagem - vem primeiro em mobile */}
           <motion.div
             className="relative z-10 order-first lg:order-last"
-            style={{ scale: imageScale, y: imageY }}
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.25 }}
@@ -129,16 +114,13 @@ const Hero = () => {
                 rounded-3xl
                 overflow-hidden
                 w-full
-                h-[400px]
-                sm:h-[480px]
-                md:h-[600px]
-                lg:h-auto
+                aspect-[4/3] md:aspect-square
               "
             >
               <img
                 src={heroImage}
                 alt="Equipe médica IDRA"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-center"
               />
             </div>
           </motion.div>
@@ -146,7 +128,6 @@ const Hero = () => {
           {/* Coluna Texto */}
           <div className="relative z-10 order-last lg:order-first">
             <motion.h1
-              style={{ scale: titleScale, y: titleY }}
               className="
                 text-4xl sm:text-5xl md:text-6xl lg:text-7xl
                 font-extrabold

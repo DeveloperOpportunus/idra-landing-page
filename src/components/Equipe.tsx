@@ -39,21 +39,21 @@ const Equipe = () => {
           <div className="w-20 h-1 bg-primary mx-auto rounded-full mt-4" />
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
           {profissionais.map((prof, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="bg-section-alt p-6 rounded-xl shadow-custom hover:shadow-hover transition-all duration-300 hover:-translate-y-1 text-center group"
+              className="bg-section-alt p-4 sm:p-6 rounded-xl shadow-custom hover:shadow-hover transition-all duration-300 hover:-translate-y-1 text-center group"
             >
               {/* Avatar com imagem */}
-              <div className="w-36 sm:w-40 md:w-48 h-36 sm:h-40 md:h-48 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-105 transition-all duration-300 overflow-hidden">
+              <div className="w-32 sm:w-40 md:w-44 lg:w-48 h-32 sm:h-40 md:h-44 lg:h-48 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-105 transition-all duration-300 overflow-hidden aspect-square">
                 <img
                   src={prof.imagem}
                   alt={prof.nome}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-center aspect-square"
                 />
               </div>
 
