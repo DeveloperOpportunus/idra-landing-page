@@ -108,7 +108,7 @@ const Hero = () => {
         <motion.div
           ref={scrollContainerRef}
           style={{ scale: heroScale, opacity: heroOpacity }}
-          className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center"
+          className="grid gap-6 md:gap-8 lg:grid-cols-2 lg:gap-12 items-center"
           variants={fadeIn}
           initial="hidden"
           animate="visible"
@@ -129,9 +129,9 @@ const Hero = () => {
                 rounded-3xl
                 overflow-hidden
                 w-full
-                h-[360px]
-                sm:h-[420px]
-                md:h-[520px]
+                h-[400px]
+                sm:h-[480px]
+                md:h-[600px]
                 lg:h-auto
               "
             >
@@ -148,7 +148,7 @@ const Hero = () => {
             <motion.h1
               style={{ scale: titleScale, y: titleY }}
               className="
-                text-3xl sm:text-4xl md:text-5xl lg:text-6xl
+                text-4xl sm:text-5xl md:text-6xl lg:text-7xl
                 font-extrabold
                 leading-tight
                 mb-6
@@ -160,13 +160,13 @@ const Hero = () => {
               custom={0.12}
             >
               <br className="hidden md:block" />
-              Descubra a <span className="text-[#0056A6]">tecnologia</span> e a{' '}
-              <span className="text-[#C8102E]">reabilitação que transformam</span>
+              DESCUBRA A <span className="text-[#0056A6]">TECNOLOGIA</span> E A{' '}
+              <span className="text-[#C8102E]">REABILITAÇÃO QUE TRANSFORMAM</span>
             </motion.h1>
 
             <motion.p
               className="
-                text-sm sm:text-base md:text-lg
+                text-base sm:text-base md:text-lg
                 text-slate-600
                 mb-8
                 leading-relaxed
@@ -221,7 +221,7 @@ const Hero = () => {
 
             {/* Badges com movimento sutil */}
             <motion.div
-              className="flex flex-wrap gap-3"
+              className="flex flex-wrap gap-2 sm:gap-3"
               variants={fadeIn}
               initial="hidden"
               animate="visible"
@@ -232,12 +232,13 @@ const Hero = () => {
                   key={index}
                   className="
                     flex items-center gap-2
-                    px-4 py-2
+                    px-3 sm:px-4 py-2
                     rounded-full
                     bg-white/70
                     border border-white/60
                     shadow-sm
                     backdrop-blur-md
+                    text-xs sm:text-sm
                   "
                   animate={{ y: [0, -6, 0] }}
                   transition={{
@@ -247,8 +248,8 @@ const Hero = () => {
                   }}
                   style={{ willChange: 'transform' }}
                 >
-                  <badge.icon className="h-4 w-4 text-[#0056A6]" />
-                  <span className="text-sm font-medium text-slate-800">
+                  <badge.icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#0056A6] flex-shrink-0" />
+                  <span className="font-medium text-slate-800 whitespace-nowrap text-xs sm:text-sm">
                     {badge.text}
                   </span>
                 </motion.div>

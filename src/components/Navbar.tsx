@@ -43,14 +43,15 @@ const Navbar = () => {
       }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
       className="
-        fixed top-4 sm:top-4 md:top-6 lg:top-6 z-50
-        w-full
+        fixed top-3 sm:top-4 md:top-6 lg:top-6 z-50
+        left-0 right-0
+        px-4 sm:px-6
         transition-all duration-300
       "
     >
       <div
         className="
-          w-[92%] sm:w-[88%] md:w-[82%] lg:w-[70%]
+          w-full
           max-w-screen-xl mx-auto
           relative h-full
           px-4 py-3

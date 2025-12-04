@@ -44,16 +44,35 @@ const Contato = () => {
     });
   };
 
+  const handleContactClick = (tipo: string, info: string) => {
+    if (tipo === 'Telefone') {
+      const phoneNumber = '5521994349845';
+      const message = 'Olá, quero saber mais informações sobre a clínica.';
+      const encodedMessage = encodeURIComponent(message);
+      window.open(
+        `https://wa.me/${phoneNumber}?text=${encodedMessage}`,
+        '_blank'
+      );
+    } else if (tipo === 'E-mail') {
+      window.location.href = `mailto:${info}`;
+    } else if (tipo === 'Endereço') {
+      window.open(
+        `https://www.google.com/maps/search/Avenida+João+Cabral+de+Mello+Neto,+850,+Barra+da+Tijuca,+Rio+de+Janeiro`,
+        '_blank'
+      );
+    }
+  };
+
   const infoContato = [
     {
       icon: MapPin,
       titulo: 'Endereço',
-      info: 'Av. Paulista, 1234 - Bela Vista, São Paulo - SP, 01310-100',
+      info: 'Avenida João Cabral de Mello Neto, 850 - Bloco 3, Sala 1702 - Barra da Tijuca, Rio de Janeiro - RJ, CEP 22775-055',
     },
     {
       icon: Phone,
       titulo: 'Telefone',
-      info: '(11) 3456-7890 / (11) 98765-4321',
+      info: '+55 21 99434-9845',
     },
     {
       icon: Mail,
@@ -202,9 +221,10 @@ const Contato = () => {
             {infoContato.map((item, index) => (
               <div
                 key={index}
-                className="bg-card p-6 rounded-xl shadow-custom flex items-start gap-4"
+                onClick={() => handleContactClick(item.titulo, item.info)}
+                className="bg-card p-6 rounded-xl shadow-custom flex items-start gap-4 cursor-pointer hover:shadow-hover hover:bg-primary/5 transition-all duration-300 hover:-translate-y-1"
               >
-                <div className="p-3 bg-primary/10 rounded-lg flex-shrink-0">
+                <div className="p-3 bg-primary/10 rounded-lg flex-shrink-0 group-hover:bg-primary transition-all duration-300">
                   <item.icon className="h-6 w-6 text-primary" />
                 </div>
                 <div>
@@ -220,7 +240,7 @@ const Contato = () => {
             <div className="bg-card p-4 rounded-xl shadow-custom">
               <div className="aspect-video bg-muted rounded-lg overflow-hidden">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1975739990943!2d-46.656437!3d-23.561414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sAv.%20Paulista%2C%201234%20-%20Bela%20Vista%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1234567890"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.5089363098015!2d-43.36477!3d-22.99649!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9bda2ced69999999%3A0x9999999999999999!2sAvenida%20Jo%C3%A3o%20Cabral%20de%20Mello%20Neto%2C%20850%20-%20Barra%20da%20Tijuca%2C%20Rio%20de%20Janeiro%20-%20RJ!5e0!3m2!1spt-BR!2sbr!4v1234567890"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}

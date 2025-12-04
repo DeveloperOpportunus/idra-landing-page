@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Building2, Dumbbell, Zap } from 'lucide-react';
+import { Building2, Zap, Users, HeartHandshake, Settings2, MapPin } from 'lucide-react';
 
 const Estrutura = () => {
   const ref = useRef(null);
@@ -9,16 +9,34 @@ const Estrutura = () => {
 
   const destaques = [
     {
-      icon: Building2,
-      text: 'Salas de atendimento individuais',
-    },
-    {
-      icon: Dumbbell,
-      text: 'Espaço para exercícios e pilates',
-    },
-    {
       icon: Zap,
-      text: 'Equipamentos específicos para dor e reabilitação',
+      title: 'VACUMED',
+      text: 'Tecnologia de pressão negativa para circulação, cicatrização e alívio de dor',
+    },
+    {
+      icon: Users,
+      title: 'Equipe Multidisciplinar',
+      text: 'Fisioterapeutas, médicos e nutricionistas trabalhando integrados',
+    },
+    {
+      icon: HeartHandshake,
+      title: 'Atendimento Humanizado',
+      text: 'Protocolo personalizado focado no seu bem-estar e recuperação',
+    },
+    {
+      icon: Settings2,
+      title: 'Equipamentos Modernos',
+      text: 'Aparelhos de ponta para reabilitação, pilates e tratamento circulatório',
+    },
+    {
+      icon: Building2,
+      title: 'Ambiente Acolhedor',
+      text: 'Salas privativas confortáveis em Barra da Tijuca, Rio de Janeiro',
+    },
+    {
+      icon: MapPin,
+      title: 'Localização Estratégica',
+      text: 'Avenida João Cabral de Mello Neto, 850 - Bloco 3, Sala 1702',
     },
   ];
 
@@ -29,49 +47,60 @@ const Estrutura = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Estrutura e Tecnologia
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+            NOSSA ESTRUTURA E TECNOLOGIA
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-4">
-            Nossa clínica conta com salas equipadas, aparelhos modernos e um ambiente
-            confortável pensado para o seu bem-estar
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-4">
+            Na IDRA, você encontra muito mais que equipamentos. Encontra tecnologia de ponta integrada com 
+            cuidado humanizado, equipe especializada e um ambiente pensado para sua recuperação total.
           </p>
           <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-16">
           {destaques.map((item, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="bg-card p-6 rounded-xl shadow-custom text-center group hover:shadow-hover hover:-translate-y-1 transition-all duration-300"
+              className="bg-card p-4 sm:p-6 rounded-xl shadow-custom text-center group hover:shadow-hover hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
-                <item.icon className="h-8 w-8 text-primary group-hover:text-primary-foreground" />
+              <div className="w-14 sm:w-16 h-14 sm:h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
+                <item.icon className="h-6 sm:h-8 w-6 sm:w-8 text-primary group-hover:text-primary-foreground" />
               </div>
-              <p className="text-foreground font-medium">{item.text}</p>
+              <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2">
+                {item.title}
+              </h3>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{item.text}</p>
             </motion.div>
           ))}
         </div>
 
-        {/* Image grid placeholder */}
+        {/* Image grid - Cômodos da clínica */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="grid md:grid-cols-3 gap-6"
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="grid md:grid-cols-3 gap-4 sm:gap-6"
         >
-          {[1, 2, 3].map((item) => (
+          {[
+            { title: 'Sala de VACUMED', desc: 'Tecnologia de ponta' },
+            { title: 'Sala de Pilates', desc: 'Reabilitação e fortalecimento' },
+            { title: 'Atendimento Privado', desc: 'Ambiente acolhedor' },
+          ].map((item, index) => (
             <div
-              key={item}
-              className="aspect-video bg-muted rounded-xl overflow-hidden shadow-custom hover:shadow-hover transition-all duration-300 hover:scale-105"
+              key={index}
+              className="aspect-video bg-muted rounded-xl overflow-hidden shadow-custom hover:shadow-hover transition-all duration-300 hover:scale-105 group cursor-pointer relative"
             >
-              <div className="w-full h-full flex items-center justify-center">
-                <Building2 className="h-12 w-12 text-muted-foreground/30" />
+              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/10 group-hover:from-primary/30 group-hover:to-primary/20 transition-all duration-300">
+                <div className="text-center">
+                  <Building2 className="h-12 w-12 text-primary/60 mx-auto mb-2" />
+                  <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                </div>
               </div>
             </div>
           ))}
