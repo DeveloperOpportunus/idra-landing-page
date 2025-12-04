@@ -11,13 +11,13 @@ const Equipe = () => {
       nome: 'Dra. Fernanda',
       especialidade: 'Fisioterapeuta',
       descricao: 'Fisioterapia Traumato-Ortopédica, RPG e Fisioterapia Ambulatorial',
-      imagem: '/src/assets/drafernanda.jpeg',
+      imagem: 'https://kygpqdqrbumtllndvktg.supabase.co/storage/v1/object/public/Idra/Profissionais/drafernanda.jpeg',
     },
     {
       nome: 'Dra. Ana Marcela',
       especialidade: 'Médica',
       descricao: 'Emagrecimento Saudável e Ortopedia Integrativa',
-      imagem: '/src/assets/draanamarcela.jpg',
+      imagem: 'https://kygpqdqrbumtllndvktg.supabase.co/storage/v1/object/public/Idra/Profissionais/draanamarcela.jpg',
     },
   ];
 
