@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { Heart, Users, Stethoscope } from 'lucide-react';
 import heroImage from '@/assets/idra-logo.png';
+import AgendarModal from '@/components/AgendarModal';
 
 const Hero = () => {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -169,20 +170,18 @@ const Hero = () => {
               animate="visible"
               custom={0.34}
             >
-              <Button
-                size="lg"
-                className="
-                  bg-[#C8102E]
-                  hover:bg-[#a50d25]
-                  text-white
-                  hover:scale-105
-                  transition-transform
-                  shadow-lg shadow-[#C8102E]/30
-                "
-                onClick={() => scrollToSection('#contato')}
-              >
-                Agendar avaliação
-              </Button>
+              <AgendarModal
+                trigger={
+                  <Button
+                    size="lg"
+                    className={
+                      'bg-[#C8102E] hover:bg-[#a50d25] text-white hover:scale-105 transition-transform shadow-lg shadow-[#C8102E]/30'
+                    }
+                  >
+                    Agendar avaliação
+                  </Button>
+                }
+              />
               <Button
                 size="lg"
                 variant="outline"

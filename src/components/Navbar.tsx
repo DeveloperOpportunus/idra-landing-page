@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import vacumed from '@/assets/vacumed.png';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -32,6 +33,11 @@ const Navbar = () => {
       el.scrollIntoView({ behavior: 'smooth' });
       setIsMobileMenuOpen(false);
     }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -71,9 +77,13 @@ const Navbar = () => {
         " />
 
         {/* Logo */}
-        <div className="font-display text-2xl font-extrabold text-[#0056A6]">
-          IDRA
-        </div>
+        <button
+          onClick={scrollToTop}
+          className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+          aria-label="Voltar ao topo"
+        >
+          <img src={vacumed} alt="IDRA" className="h-10 w-auto object-contain" />
+        </button>
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-6">

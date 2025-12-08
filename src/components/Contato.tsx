@@ -1,38 +1,114 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { useToast } from '@/hooks/use-toast';
+import { sendContato } from '@/lib/api';
 
 const Contato = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const { toast } = useToast();
+  const popoverRef = useRef<HTMLDivElement>(null);
+  const [popoverOpen, setPopoverOpen] = useState(false);
 
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
     telefone: '',
-    assunto: '',
+    dores: [] as string[],
     mensagem: '',
+    privacyAccepted: false,
   });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const doresList = [
+    'Insuficiência venosa crónica de membros inferiores (Úlceras Venosas, Varizes)',
+    'Síndrome pós-trombótica',
+    'Edema',
+    'Úlceras e feridas de difícil cicatrização',
+    'Pós-operatório de tratamento cirúrgico de varizes de MMII',
+    'Edema pós-traumático',
+    'Edema pós-mastectomia',
+    'Doença arterial oclusiva periférica (DAOP)',
+    'Pé diabético com lesão trófica',
+    'Doenças do sistema circulatório',
+    'Neuropatia diabética (Burning Feet)',
+    'Dor crónica (MMII, dorso, feridas e artrites)',
+    'Fibromialgia',
+    'Cicatrização de feridas',
+    'Pós-operatório',
+    'Síndrome da perna cansada',
+    'Torsões, roturas, lesões ligamentares, contusões e traumas',
+    'Reabilitação pós-cirurgias ortopédicas (ex: prótese)',
+    'Reabilitação e recuperação de lesões, incluindo fraturas',
+    'Linfedema (congénito, crónico e pós-mastectomia)',
+    'Medicina estética',
+    'Outras',
+  ];
+
+  useEffect(() => {
+    if (!popoverRef.current) return;
+    
+    const handleWheel = (e: WheelEvent) => {
+      const el = popoverRef.current;
+      if (!el) return;
+      
+      const { scrollTop, scrollHeight, clientHeight } = el;
+      const isAtTop = scrollTop === 0;
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight;
+      
+      if ((e.deltaY < 0 && isAtTop) || (e.deltaY > 0 && isAtBottom)) {
+        e.preventDefault();
+      }
+    };
+
+    popoverRef.current.addEventListener('wheel', handleWheel, { passive: false });
+    return () => popoverRef.current?.removeEventListener('wheel', handleWheel);
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: 'Mensagem enviada!',
-      description: 'Entraremos em contato em breve.',
-    });
-    setFormData({
-      nome: '',
-      email: '',
-      telefone: '',
-      assunto: '',
-      mensagem: '',
-    });
+    if (!formData.privacyAccepted) {
+      toast({
+        title: 'Erro',
+        description: 'Você deve aceitar os termos de privacidade.',
+      });
+      return;
+    }
+    setLoading(true);
+    try {
+      await sendContato(formData);
+      toast({
+        title: 'Mensagem enviada!',
+        description: 'Entraremos em contato em breve.',
+      });
+      setFormData({
+        nome: '',
+        email: '',
+        telefone: '',
+        dores: [],
+        mensagem: '',
+        privacyAccepted: false,
+      });
+      
+      // Auto-dismiss toast após 1 segundo
+      setTimeout(() => {
+        // O toast será automaticamente removido após 1 segundo
+      }, 1000);
+    } catch (err: any) {
+      toast({
+        title: 'Erro ao enviar',
+        description: err?.message || 'Tente novamente mais tarde.',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (
@@ -104,7 +180,7 @@ const Contato = () => {
           <div className="w-20 h-1 bg-primary mx-auto rounded-full mt-4" />
         </motion.div>
 
-        <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-12">
+        <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-12 lg:items-start">
           {/* Formulário */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -168,20 +244,54 @@ const Contato = () => {
               </div>
 
               <div>
-                <label
-                  htmlFor="assunto"
-                  className="block text-sm font-medium text-foreground mb-2"
-                >
-                  Assunto
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Dores
                 </label>
-                <Input
-                  id="assunto"
-                  name="assunto"
-                  type="text"
-                  required
-                  value={formData.assunto}
-                  onChange={handleChange}
-                />
+                <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" className="w-full text-left justify-between">
+                      <span>
+                        {formData.dores && formData.dores.length > 0 ? `${formData.dores.length} selecionada(s)` : 'Selecione as dores'}
+                      </span>
+                    </Button>
+                  </PopoverTrigger>
+
+                  <PopoverContent side="bottom" align="start" className="!w-[calc(100vw-2rem)] sm:!w-80 md:!w-96 !p-0 !border-0 !bg-transparent !shadow-none">
+                    <div ref={popoverRef} className="bg-popover border border-input rounded-md shadow-md p-4 max-h-64 overflow-y-auto">
+                      <div className="space-y-3">
+                        {doresList.map((d) => (
+                          <label key={d} className="flex items-start gap-3 cursor-pointer hover:bg-accent/50 p-2 rounded transition-colors">
+                            <Checkbox
+                              checked={!!formData.dores?.includes(d)}
+                              onCheckedChange={(checked: boolean) => {
+                                const current = formData.dores ?? [];
+                                if (checked) {
+                                  setFormData({ ...formData, dores: Array.from(new Set([...current, d])) });
+                                } else {
+                                  setFormData({ ...formData, dores: current.filter((x) => x !== d) });
+                                }
+                              }}
+                              className="mt-1"
+                            />
+                            <span className="text-sm leading-tight text-foreground">{d}</span>
+                          </label>
+                        ))}
+                      </div>
+
+                      <div className="flex gap-2 mt-4 pt-4 border-t">
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => setPopoverOpen(false)}
+                          className="flex-1"
+                        >
+                          Fechar
+                        </Button>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </div>
 
               <div>
@@ -202,11 +312,28 @@ const Contato = () => {
                 />
               </div>
 
+              <div className="flex items-center gap-3">
+                <Checkbox
+                  id="privacy"
+                  checked={formData.privacyAccepted}
+                  onCheckedChange={(checked: boolean) => {
+                    setFormData({ ...formData, privacyAccepted: checked });
+                  }}
+                />
+                <label
+                  htmlFor="privacy"
+                  className="text-sm text-muted-foreground cursor-pointer leading-tight"
+                >
+                  Aceito os termos de privacidade e proteção de dados
+                </label>
+              </div>
+
               <Button
                 type="submit"
+                disabled={loading}
                 className="w-full bg-accent hover:bg-accent-hover text-accent-foreground"
               >
-                Enviar mensagem
+                {loading ? 'Enviando...' : 'Enviar mensagem'}
               </Button>
             </form>
           </motion.div>
