@@ -26,11 +26,11 @@ const Especialidades = () => {
     },
     {
       icon: Leaf,
-      title: 'Emagrecimento Saudável',
+      title: 'Solução para Emagrecimento',
       featured: true,
-      pain: 'Cansou de dietas que não funcionam e peso que volta sempre?',
-      solution: 'Aqui o emagrecimento é integrado. Combinamos avaliação nutricional personalizada com ortopedia funcional, criando um programa único para você. Não é apenas emagrecer, é transformar sua relação com o corpo e ganhar disposição real.',
-      benefit: 'Perca peso de forma sustentável e ganhe saúde verdadeira.',
+      pain: 'Peso que não desce, cansaço ao caminhar, corpo limitado pelo excesso?',
+      solution: 'Transformamos seu emagrecimento em saúde real. Com nutrição personalizada integrada a protocolos de movimento e força, eliminamos as dores das articulações, aumentamos energia e você emagrece enquanto recupera a liberdade de movimento. Não é dieta, é transformação total do corpo.',
+      benefit: 'Emagreça, elimine dores articulares e ganhe uma vida sem limitações.',
     },
     {
       icon: Activity,
@@ -93,50 +93,52 @@ const Especialidades = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="bg-gradient-to-br from-primary/5 to-primary/10 border-2 border-primary/30 p-4 sm:p-6 md:p-8 rounded-2xl shadow-custom hover:shadow-hover transition-all duration-300 hover:-translate-y-1 w-full"
+                className="group relative bg-gradient-to-br from-white/10 via-white/5 to-white/0 backdrop-blur-xl border border-white/20 p-6 sm:p-8 md:p-10 rounded-2xl shadow-2xl hover:shadow-hover transition-all duration-300 hover:-translate-y-2 overflow-hidden"
               >
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="p-3 sm:p-4 bg-primary/20 rounded-lg flex-shrink-0">
-                    <esp.icon className="h-6 sm:h-8 w-6 sm:w-8 text-primary" />
+                {/* Decorative gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+                
+                {/* Animated gradient border */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/30 via-accent/20 to-primary/30 opacity-30 group-hover:opacity-50 transition-opacity duration-300 -z-10 blur" />
+
+                <div className="relative z-10">
+                  {/* Icon Section */}
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="p-4 sm:p-5 bg-primary/30 rounded-xl border border-primary/30 flex-shrink-0 group-hover:bg-primary/40 transition-all duration-300">
+                      <esp.icon className="h-7 sm:h-9 w-7 sm:w-9 text-primary" />
+                    </div>
+                    <h3 className="text-2xl sm:text-3xl font-bold text-primary">
+                      {esp.title}
+                    </h3>
                   </div>
-                  <h3 className="text-2xl sm:text-3xl font-bold text-foreground">
-                    {esp.title}
-                  </h3>
-                </div>
 
-                {/* A dor/problema */}
-                <div className="mb-6 pb-6 border-b border-primary/20">
-                  <p className="text-base sm:text-lg text-slate-700 font-semibold italic">
-                    "{esp.pain}"
-                  </p>
-                </div>
+                  {/* A dor/problema - Destaque em Vermelho */}
+                  <div className="mb-6 pb-6 border-b border-white/20">
+                    <p className="text-base sm:text-lg text-accent font-bold not-italic leading-relaxed">
+                      {esp.pain}
+                    </p>
+                  </div>
 
-                {/* A solução */}
-                <div className="mb-6">
-                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4">
-                    {esp.solution}
-                  </p>
-                </div>
+                  {/* A solução */}
+                  <div className="mb-6">
+                    <p className="text-sm sm:text-base text-foreground/85 leading-relaxed font-medium">
+                      {esp.solution}
+                    </p>
+                  </div>
 
-                {/* O benefício */}
-                <div className="mb-6 p-3 sm:p-4 bg-primary/10 rounded-lg border border-primary/20">
-                  <p className="text-base sm:text-lg font-semibold text-primary">
-                    ✓ {esp.benefit}
-                  </p>
+                  {/* O benefício - Destaque com ícone */}
+                  <div className="mb-6 p-4 sm:p-5 bg-primary/20 rounded-xl border border-primary/30 group-hover:bg-primary/30 transition-all duration-300">
+                    <p className="text-base sm:text-lg font-bold text-primary flex items-center gap-2">
+                      <span className="text-accent text-xl">✓</span> {esp.benefit}
+                    </p>
+                  </div>
                 </div>
-
-                <Button
-                  onClick={() => scrollToSection('#contato')}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
-                >
-                  Agendar Consulta <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
               </motion.div>
             ))}
         </div>
 
         {/* Other Specialties */}
-        <div>
+        <div className="mb-16">
           <h3 className="text-2xl font-bold text-foreground mb-8 text-center">
             OUTRAS ESPECIALIDADES
           </h3>
@@ -172,6 +174,33 @@ const Especialidades = () => {
               ))}
           </div>
         </div>
+
+        {/* CTA Section - Estratégico e Chamativo */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="relative bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 backdrop-blur-md border border-primary/20 rounded-2xl p-8 sm:p-12 md:p-16 text-center overflow-hidden"
+        >
+          {/* Decorative elements */}
+          <div className="absolute top-0 right-0 w-40 h-40 bg-accent/20 rounded-full blur-3xl -mr-20 -mt-20" />
+          <div className="absolute bottom-0 left-0 w-40 h-40 bg-primary/20 rounded-full blur-3xl -ml-20 -mb-20" />
+
+          <div className="relative z-10">
+            <h3 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+              Pronto para Transformar sua Vida?
+            </h3>
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Escolha a solução que mais se encaixa no seu objetivo e dê o primeiro passo rumo à saúde e liberdade que você merece.
+            </p>
+            <Button
+              onClick={() => scrollToSection('#contato')}
+              className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300 py-6 px-10 text-lg inline-flex items-center gap-2"
+            >
+              Agende sua consulta
+            </Button>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
