@@ -134,4 +134,18 @@ All colors MUST be HSL.
   .shadow-hover {
     box-shadow: var(--shadow-hover);
   }
+  
+  /* Optimize animations: prefer transform/opacity and provide compositing hint */
+  .transition-transform {
+    transition-property: transform;
+  }
+
+  .transition-opacity {
+    transition-property: opacity;
+  }
+
+  .will-change-transform {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+  }
 }

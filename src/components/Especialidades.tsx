@@ -72,7 +72,7 @@ const Especialidades = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-16 will-change-transform"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
             NOSSAS SOLUÇÕES PARA SUA SAÚDE
@@ -93,7 +93,7 @@ const Especialidades = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="group relative bg-gradient-to-br from-white/10 via-white/5 to-white/0 backdrop-blur-xl border border-white/20 p-6 sm:p-8 md:p-10 rounded-2xl shadow-2xl hover:shadow-hover transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                className="group relative bg-gradient-to-br from-white/10 via-white/5 to-white/0 backdrop-blur-xl border border-white/20 p-6 sm:p-8 md:p-10 rounded-2xl shadow-2xl hover:shadow-hover transition-transform transition-opacity duration-300 hover:-translate-y-2 overflow-hidden will-change-transform"
               >
                 {/* Decorative gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
@@ -104,7 +104,7 @@ const Especialidades = () => {
                 <div className="relative z-10">
                   {/* Icon Section */}
                   <div className="flex items-start gap-4 mb-6">
-                    <div className="p-4 sm:p-5 bg-primary/30 rounded-xl border border-primary/30 flex-shrink-0 group-hover:bg-primary/40 transition-all duration-300">
+                    <div className="p-4 sm:p-5 bg-primary/30 rounded-xl border border-primary/30 flex-shrink-0 group-hover:bg-primary/40 transition-transform transition-opacity duration-300">
                       <esp.icon className="h-7 sm:h-9 w-7 sm:w-9 text-primary" />
                     </div>
                     <h3 className="text-2xl sm:text-3xl font-bold text-primary">
@@ -127,7 +127,7 @@ const Especialidades = () => {
                   </div>
 
                   {/* O benefício - Destaque com ícone */}
-                  <div className="mb-6 p-4 sm:p-5 bg-primary/20 rounded-xl border border-primary/30 group-hover:bg-primary/30 transition-all duration-300">
+                  <div className="mb-6 p-4 sm:p-5 bg-primary/20 rounded-xl border border-primary/30 group-hover:bg-primary/30 transition-transform transition-opacity duration-300">
                     <p className="text-base sm:text-lg font-bold text-primary flex items-center gap-2">
                       <span className="text-accent text-xl">✓</span> {esp.benefit}
                     </p>
@@ -151,7 +151,7 @@ const Especialidades = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.4, delay: (index + 2) * 0.1 }}
-                  className="bg-card p-6 rounded-xl shadow-custom hover:shadow-hover transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+                  className="bg-card p-6 rounded-xl shadow-custom hover:shadow-hover transition-transform transition-opacity duration-300 hover:-translate-y-1 cursor-pointer will-change-transform"
                   onClick={() => scrollToSection('#contato')}
                 >
                   <div className="flex items-start gap-4 mb-4">

@@ -71,7 +71,7 @@ const Estrutura = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-16 will-change-transform"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
             NOSSA ESTRUTURA E TECNOLOGIA
@@ -100,9 +100,9 @@ const Estrutura = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
-                  className="flex-shrink-0 w-full sm:w-96 bg-card p-6 rounded-xl shadow-custom text-center group hover:shadow-hover hover:-translate-y-1 transition-all duration-300"
+                  className="flex-shrink-0 w-full sm:w-96 bg-card p-6 rounded-xl shadow-custom text-center group hover:shadow-hover hover:-translate-y-1 transition-transform transition-opacity duration-300 will-change-transform"
                 >
-                  <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-transform transition-opacity duration-300 will-change-transform">
                     <item.icon className="h-8 w-8 text-primary group-hover:text-primary-foreground" />
                   </div>
                   <h3 className="text-xl font-semibold text-foreground mb-2">
