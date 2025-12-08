@@ -12,12 +12,14 @@ const Equipe = () => {
       especialidade: 'Fisioterapeuta',
       descricao: 'Fisioterapia Traumato-Ortopédica, RPG e Fisioterapia Ambulatorial',
       imagem: 'https://kygpqdqrbumtllndvktg.supabase.co/storage/v1/object/public/Idra/Profissionais/drafernanda.jpeg',
+      instagram: null,
     },
     {
       nome: 'Dra. Ana Marcela',
       especialidade: 'Médica',
       descricao: 'Emagrecimento Saudável e Ortopedia Integrativa',
       imagem: 'https://kygpqdqrbumtllndvktg.supabase.co/storage/v1/object/public/Idra/Profissionais/draanamarcela.jpg',
+      instagram: 'https://www.instagram.com/dra.anamarcela/',
     },
   ];
 
@@ -46,7 +48,10 @@ const Equipe = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="bg-section-alt p-4 sm:p-6 rounded-xl shadow-custom hover:shadow-hover transition-all duration-300 hover:-translate-y-1 text-center group"
+              onClick={() => prof.instagram && window.open(prof.instagram, '_blank')}
+              className={`bg-section-alt p-4 sm:p-6 rounded-xl shadow-custom hover:shadow-hover transition-all duration-300 hover:-translate-y-1 text-center group ${
+                prof.instagram ? 'cursor-pointer' : ''
+              }`}
             >
               {/* Avatar com imagem */}
               <div className="w-32 sm:w-40 md:w-44 lg:w-48 h-32 sm:h-40 md:h-44 lg:h-48 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-105 transition-all duration-300 overflow-hidden aspect-square">

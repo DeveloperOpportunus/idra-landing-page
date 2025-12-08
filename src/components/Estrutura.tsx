@@ -1,11 +1,35 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Building2, Zap, Users, HeartHandshake, Settings2, MapPin } from 'lucide-react';
+import useEmblaCarousel from 'embla-carousel-react';
+import AutoScroll from 'embla-carousel-auto-scroll';
 
 const Estrutura = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true, align: 'start', skipSnaps: false },
+    [AutoScroll({ playOnInit: true, speed: 0.3, stopOnInteraction: false })]
+  );
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const onSelect = () => {
+      setCanScrollPrev(emblaApi.canScrollPrev());
+      setCanScrollNext(emblaApi.canScrollNext());
+    };
+
+    emblaApi.on('select', onSelect);
+    onSelect();
+
+    return () => {
+      emblaApi.off('select', onSelect);
+    };
+  }, [emblaApi]);
 
   const destaques = [
     {
@@ -59,24 +83,36 @@ const Estrutura = () => {
           <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-16">
-          {destaques.map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="bg-card p-4 sm:p-6 rounded-xl shadow-custom text-center group hover:shadow-hover hover:-translate-y-1 transition-all duration-300"
-            >
-              <div className="w-14 sm:w-16 h-14 sm:h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
-                <item.icon className="h-6 sm:h-8 w-6 sm:w-8 text-primary group-hover:text-primary-foreground" />
-              </div>
-              <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2">
-                {item.title}
-              </h3>
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{item.text}</p>
-            </motion.div>
-          ))}
+        {/* Carousel com Embla */}
+        <div className="relative mb-16">
+          {/* Blur esquerdo */}
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-section-alt via-section-alt/50 to-transparent z-10 pointer-events-none rounded-l-xl" />
+          
+          {/* Blur direito */}
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-section-alt via-section-alt/50 to-transparent z-10 pointer-events-none rounded-r-xl" />
+
+          {/* Carousel container */}
+          <div className="overflow-hidden rounded-xl" ref={emblaRef}>
+            <div className="flex gap-6 sm:gap-8">
+              {destaques.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  className="flex-shrink-0 w-full sm:w-96 bg-card p-6 rounded-xl shadow-custom text-center group hover:shadow-hover hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
+                    <item.icon className="h-8 w-8 text-primary group-hover:text-primary-foreground" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.text}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Image grid - Cômodos da clínica */}
