@@ -7,7 +7,7 @@ import AutoScroll from 'embla-carousel-auto-scroll';
 
 const Estrutura = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: '-100px', amount: 0.25 });
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: 'start', skipSnaps: false },
     [AutoScroll({ playOnInit: true, speed: 0.3, stopOnInteraction: false })]

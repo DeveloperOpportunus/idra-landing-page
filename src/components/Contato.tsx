@@ -12,7 +12,7 @@ import { sendContato } from '@/lib/api';
 
 const Contato = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: '-100px', amount: 0.25 });
   const { toast } = useToast();
   const popoverRef = useRef<HTMLDivElement>(null);
   const [popoverOpen, setPopoverOpen] = useState(false);

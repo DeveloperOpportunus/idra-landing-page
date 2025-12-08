@@ -5,7 +5,7 @@ import { Quote } from 'lucide-react';
 
 const Depoimentos = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: '-100px', amount: 0.25 });
 
   const depoimentos = [
     {
@@ -41,7 +41,7 @@ const Depoimentos = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-16 will-change-transform"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Depoimentos
@@ -59,7 +59,7 @@ const Depoimentos = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="bg-section-alt p-6 md:p-8 rounded-xl shadow-custom hover:shadow-hover transition-all duration-300 hover:-translate-y-1 relative"
+              className="bg-section-alt p-6 md:p-8 rounded-xl shadow-custom hover:shadow-hover transition-transform transition-opacity duration-300 hover:-translate-y-1 relative will-change-transform"
             >
               <Quote className="absolute top-4 md:top-6 right-4 md:right-6 h-8 md:h-10 w-8 md:w-10 text-primary/20" />
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6 relative z-10">

@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 
 const Especialidades = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: '-100px', amount: 0.25 });
 
   const especialidades = [
     {

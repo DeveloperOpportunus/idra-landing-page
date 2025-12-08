@@ -4,22 +4,22 @@ import { useRef } from 'react';
 
 const Equipe = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: '-100px', amount: 0.25 });
 
   const profissionais = [
-    {
-      nome: 'Dra. Fernanda',
-      especialidade: 'Fisioterapeuta',
-      descricao: 'Fisioterapia Traumato-Ortopédica, RPG e Fisioterapia Ambulatorial',
-      imagem: 'https://kygpqdqrbumtllndvktg.supabase.co/storage/v1/object/public/Idra/Profissionais/drafernanda.jpeg',
-      instagram: null,
-    },
     {
       nome: 'Dra. Ana Marcela',
       especialidade: 'Médica',
       descricao: 'Emagrecimento Saudável e Ortopedia Integrativa',
       imagem: 'https://kygpqdqrbumtllndvktg.supabase.co/storage/v1/object/public/Idra/Profissionais/draanamarcela.jpg',
       instagram: 'https://www.instagram.com/dra.anamarcela/',
+    },
+    {
+      nome: 'Liliam Vigliele',
+      especialidade: 'Fisioterapeuta',
+      descricao: 'Fisioterapia Traumato-Ortopédica, RPG e Fisioterapia Ambulatorial',
+      imagem: 'https://kygpqdqrbumtllndvktg.supabase.co/storage/v1/object/public/Idra/Profissionais/drafernanda.jpeg',
+      instagram: null,
     },
   ];
 
@@ -30,7 +30,7 @@ const Equipe = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-16 will-change-transform"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Nossa Equipe
@@ -49,12 +49,12 @@ const Equipe = () => {
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.4, delay: index * 0.1 }}
               onClick={() => prof.instagram && window.open(prof.instagram, '_blank')}
-              className={`bg-section-alt p-4 sm:p-6 rounded-xl shadow-custom hover:shadow-hover transition-all duration-300 hover:-translate-y-1 text-center group ${
+              className={`bg-section-alt p-4 sm:p-6 rounded-xl shadow-custom hover:shadow-hover transition-transform transition-opacity duration-300 hover:-translate-y-1 text-center group ${
                 prof.instagram ? 'cursor-pointer' : ''
               }`}
             >
               {/* Avatar com imagem */}
-              <div className="w-32 sm:w-40 md:w-44 lg:w-48 h-32 sm:h-40 md:h-44 lg:h-48 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-105 transition-all duration-300 overflow-hidden aspect-square">
+              <div className="w-32 sm:w-40 md:w-44 lg:w-48 h-32 sm:h-40 md:h-44 lg:h-48 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-105 transition-transform transition-opacity duration-300 overflow-hidden aspect-square will-change-transform">
                 <img
                   src={prof.imagem}
                   alt={prof.nome}

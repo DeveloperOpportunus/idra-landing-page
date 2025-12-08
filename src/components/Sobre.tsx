@@ -6,7 +6,7 @@ import clinicImage from '@/assets/clinic-interior.jpg';
 
 const Sobre = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: '-100px', amount: 0.25 });
 
   const diferenciais = [
     'Avaliação completa e personalizada',

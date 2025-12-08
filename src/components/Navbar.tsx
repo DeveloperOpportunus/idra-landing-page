@@ -52,7 +52,7 @@ const Navbar = () => {
         fixed top-3 sm:top-4 md:top-6 lg:top-6 z-50
         left-0 right-0
         px-3 sm:px-4 md:px-6
-        transition-all duration-300
+        transition-transform transition-opacity duration-300 will-change-transform
       "
     >
       <div
@@ -66,7 +66,7 @@ const Navbar = () => {
           shadow-lg
           bg-white/70
           backdrop-blur-xl
-          transition-all duration-300
+          transition-opacity duration-300
         "
       >
         {/* Glow */}
